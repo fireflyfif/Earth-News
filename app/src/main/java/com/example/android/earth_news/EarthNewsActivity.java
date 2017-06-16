@@ -7,7 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,7 +52,7 @@ public class EarthNewsActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
         emptyView = (TextView) findViewById(R.id.text_no_news);
@@ -92,8 +91,8 @@ public class EarthNewsActivity extends AppCompatActivity
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
 
-
         mAdapter = new EarthNewsAdapter(this, new ArrayList<EarthNews>());
+        recyclerView.setAdapter(mAdapter);
 
         if (newsList != null && !newsList.isEmpty()) {
             mAdapter = new EarthNewsAdapter(this, newsList);
@@ -102,7 +101,7 @@ public class EarthNewsActivity extends AppCompatActivity
         } else {
             emptyView.setVisibility(View.VISIBLE);
             emptyView.setText("No News Found");
-            Log.e(LOG_TAG, "Is it really null?");
+            Log.e(LOG_TAG, "Why is the list null?");
         }
     }
 
@@ -111,4 +110,5 @@ public class EarthNewsActivity extends AppCompatActivity
         Log.e(LOG_TAG, "onLoadReset is called");
         mAdapter = new EarthNewsAdapter(this, new ArrayList<EarthNews>());
     }
+
 }
