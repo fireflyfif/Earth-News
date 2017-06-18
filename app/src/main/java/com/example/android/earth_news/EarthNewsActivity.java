@@ -6,7 +6,9 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +29,7 @@ public class EarthNewsActivity extends AppCompatActivity
     private static final int NEWS_LOADER_ID = 1;
 
     private static final String EARTH_NEWS_URL =
-            "http://content.guardianapis.com/search?show-tags=contributor&show-references=all&show-fields=all&q=politics&api-key=test";
+            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-fields=all&q=environment&api-key=test";
 
     private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
@@ -37,6 +39,7 @@ public class EarthNewsActivity extends AppCompatActivity
 
     private TextView emptyView;
     private ProgressBar progressBar;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,16 @@ public class EarthNewsActivity extends AppCompatActivity
 
         Log.e(LOG_TAG, "onCreate is called");
 
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                                              @Override
+                                              public void onRefresh() {
+                                                  mAdapter = new EarthNewsAdapter(getApplicationContext(),
+                                                          new ArrayList<EarthNews>());
+                                                  recyclerView.setAdapter(mAdapter);
+                                              }
+                                          });
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         newsList = new ArrayList<>();
@@ -52,30 +65,38 @@ public class EarthNewsActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
         emptyView = (TextView) findViewById(R.id.text_no_news);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-
+        // Get a reference to the ConnectivityManager to check of network connectivity
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        // Get details on the currently active default data network
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
+        // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
             Log.e(LOG_TAG, "There is an internet connection.");
+            // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
+
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null
+            // for the bundle. Pass in this activity for the LoaderCallbacks parameter
+            // (which is valid because this activity implements the LoadersCallbacks interface.)
             loaderManager.initLoader(NEWS_LOADER_ID, null, this);
         } else {
             Log.e(LOG_TAG, "There is No internet connection.");
+            // Otherwise, display error
+            // First, hide loading indicator so error will be visible
             progressBar.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-            emptyView.setText("No Internet Connection");
+            emptyView.setVisibility(View.GONE);
+            emptyView.setText(R.string.no_internet);
         }
     }
-
 
     @Override
     public Loader<List<EarthNews>> onCreateLoader(int id, Bundle args) {
@@ -88,19 +109,21 @@ public class EarthNewsActivity extends AppCompatActivity
     public void onLoadFinished(Loader<List<EarthNews>> loader, List<EarthNews> data) {
         Log.e(LOG_TAG, "onLoadFinished is called");
 
+        // Set these views to invisible
         progressBar.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
+        swipeRefresh.setRefreshing(false);
 
-        mAdapter = new EarthNewsAdapter(this, new ArrayList<EarthNews>());
+        mAdapter = new EarthNewsAdapter(this, data);
         recyclerView.setAdapter(mAdapter);
 
-        if (newsList != null && !newsList.isEmpty()) {
-            mAdapter = new EarthNewsAdapter(this, newsList);
+        if (data != null && !data.isEmpty()) {
+            mAdapter = new EarthNewsAdapter(this, data);
             recyclerView.setVisibility(View.VISIBLE);
             Log.e(LOG_TAG, "Where is the recyclerView?");
         } else {
             emptyView.setVisibility(View.VISIBLE);
-            emptyView.setText("No News Found");
+            emptyView.setText(R.string.no_news_found);
             Log.e(LOG_TAG, "Why is the list null?");
         }
     }
@@ -110,5 +133,4 @@ public class EarthNewsActivity extends AppCompatActivity
         Log.e(LOG_TAG, "onLoadReset is called");
         mAdapter = new EarthNewsAdapter(this, new ArrayList<EarthNews>());
     }
-
 }

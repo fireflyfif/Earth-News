@@ -63,42 +63,66 @@ public class QueryUtils {
                 // Extract the value from the key called "webUrl"
                 String webUrl = currentNews.getString("webUrl");
 
-                // TODO extract the thumbnail from JSONObject "fields"
-
                 JSONObject newsFields = currentNews.getJSONObject("fields");
 
                 // Extract the value from the key called "trailText"
                 // This is the summary of the news
                 String summary = newsFields.getString("trailText");
 
+                // Extract the thumbnail from the key called "thumbnail"
+//                String thumbnail = currentNews.getString("thumbnail");
+                String thumbnail;
+                if (newsFields.has("thumbnail")) {
+                    thumbnail = newsFields.getString("thumbnail");
+                } else {
+                    thumbnail = "No Image";
+                }
+
                 // Extract the value for authors
                 JSONArray authorsArray;
-                String authors = "";
-                String firstName, lastName;
+                String contributors = "";
                 if (currentNews.has("tags")) {
                     authorsArray = currentNews.getJSONArray("tags");
-                    if (authorsArray.length() != 0) {
-                        for (int n = 0; n < authorsArray.length(); n++) {
-                            JSONObject authorObject = authorsArray.getJSONObject(n);
-                            if (authorObject.has("firstName")) {
-                                firstName = authorObject.getString("firstName");
-                            } else
-                                firstName = "";
-                            if (authorObject.has("lastName"))
-                                lastName = authorObject.getString("lastName");
-                            else
-                                lastName = "";
-                            authors = firstName + " " + lastName;
+                    for (int n = 0; n < authorsArray.length(); n++) {
+                        JSONObject authors = authorsArray.getJSONObject(n);
+                        if (authors.has("webTitle")) {
+                            contributors = authors.getString("webTitle");
+                        } else {
+                            contributors = "unknown author";
                         }
-                    } else
-                        authors = "Unknown Author";
-                } else
-                    authors = "Unknown Author";
+                    }
+                } else {
+                    contributors = "unknown author";
+                }
+
+                // Extract the value for authors
+//                JSONArray authorsArray;
+//                String authors = "";
+//                String firstName, lastName;
+//                if (currentNews.has("tags")) {
+//                    authorsArray = currentNews.getJSONArray("tags");
+//                    if (authorsArray.length() != 0) {
+//                        for (int n = 0; n < authorsArray.length(); n++) {
+//                            JSONObject authorObject = authorsArray.getJSONObject(n);
+//                            if (authorObject.has("firstName")) {
+//                                firstName = authorObject.getString("firstName");
+//                            } else
+//                                firstName = "";
+//                            if (authorObject.has("lastName"))
+//                                lastName = authorObject.getString("lastName");
+//                            else
+//                                lastName = "";
+//                            authors = firstName + " " + lastName;
+//                        }
+//                    } else
+//                        authors = "Unknown Author";
+//                } else
+//                    authors = "Unknown Author";
 
                 // Create a new {@link EarthNews} object with the webTitle, sectionName,
                 // webDate, summary and authors from the JSON response.
                 EarthNews earthNewsObject = new EarthNews(webTitle, sectionName, webDate, summary,
-                        authors, webUrl);
+                        contributors, webUrl, thumbnail);
 
                 // Add the new {@link EarthNews} to the list of news.
                 newsList.add(earthNewsObject);

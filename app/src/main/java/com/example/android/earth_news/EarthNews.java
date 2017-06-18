@@ -18,7 +18,7 @@ public class EarthNews {
 
     private String mUrl;
 
-//    private String mThumbnail;
+    private String mThumbnail;
 
 
     /**
@@ -30,13 +30,14 @@ public class EarthNews {
      * @param url is the url of the news
      */
     public EarthNews(String webTitle, String sectionName, String webDate, String summary,
-                     String author, String url) {
+                     String author, String url, String thumbnail) {
         mWebTitle = webTitle;
         mSectionName = sectionName;
         mWebDate = webDate;
         mSummary = summary;
         mAuthor = author;
         mUrl = url;
+        mThumbnail = thumbnail;
     }
 
     public String getWebTitle() {
@@ -61,5 +62,9 @@ public class EarthNews {
 
     public String getUrl() {
         return mUrl;
+    }
+
+    public String getThumbnail() {
+        return mThumbnail;
     }
 }

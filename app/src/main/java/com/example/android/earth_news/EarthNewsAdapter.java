@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,6 +20,8 @@ import java.util.List;
  */
 
 public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.ViewHolder> {
+
+    private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
     private List<EarthNews> mNewsList;
     private Context mContext;
@@ -48,6 +54,29 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
                 mContext.startActivity(intent);
             }
         });
+
+        if (holder.thumbnail == null) {
+            holder.thumbnail = new ImageView(mContext);
+        }
+
+        holder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Picasso.with(mContext)
+                .load(news.getThumbnail())
+                .placeholder(R.drawable.librarian_book_01)
+                .error(R.drawable.librarian_book_01)
+                .into(holder.thumbnail, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.e(LOG_TAG, "Loading of the image is successful...");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.e(LOG_TAG, "Loading of the image has error...");
+                    }
+                });
+
+
     }
 
     @Override
@@ -62,6 +91,7 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
         public TextView date;
         public TextView author;
         public TextView summary;
+        public ImageView thumbnail;
 
         public ViewHolder(View view) {
             super(view);
@@ -70,6 +100,7 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
             date = (TextView) view.findViewById(R.id.news_date);
             author = (TextView) view.findViewById(R.id.author_name);
             summary = (TextView) view.findViewById(R.id.trail_text);
+            thumbnail = (ImageView) view.findViewById(R.id.thumbnail_news);
         }
     }
 }

@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/thumbnail_news"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
                 android:src="@drawable/librarian_book_01" />
 
             <LinearLayout
