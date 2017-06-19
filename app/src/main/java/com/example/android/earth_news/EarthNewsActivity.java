@@ -2,6 +2,7 @@ package com.example.android.earth_news;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -12,6 +13,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,7 +32,7 @@ public class EarthNewsActivity extends AppCompatActivity
     private static final int NEWS_LOADER_ID = 1;
 
     private static final String EARTH_NEWS_URL =
-            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-fields=all&q=environment&api-key=test";
+            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-fields=all&page-size=15&q=environment&api-key=test";
 
     private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
@@ -132,5 +135,22 @@ public class EarthNewsActivity extends AppCompatActivity
     public void onLoaderReset(Loader<List<EarthNews>> loader) {
         Log.e(LOG_TAG, "onLoadReset is called");
         mAdapter = new EarthNewsAdapter(this, new ArrayList<EarthNews>());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
