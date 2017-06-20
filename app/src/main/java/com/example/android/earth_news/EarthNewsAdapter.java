@@ -57,6 +57,14 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
     public void onBindViewHolder(EarthNewsAdapter.ViewHolder holder, int position) {
         final EarthNews news = mNewsList.get(position);
         holder.title.setText(news.getWebTitle());
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(news.getUrl()));
+                mContext.startActivity(intent);
+            }
+        });
         holder.section.setText(news.getSectionName());
 
         // Get the original webPublicationDate string from the EarthNews object,
@@ -109,8 +117,8 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
         holder.thumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.with(mContext)
                 .load(news.getThumbnail())
-                .placeholder(R.drawable.librarian_book_01)
-                .error(R.drawable.librarian_book_01)
+                .placeholder(R.drawable.news_image_2)
+                .error(R.drawable.news_image_2)
                 .into(holder.thumbnail, new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {

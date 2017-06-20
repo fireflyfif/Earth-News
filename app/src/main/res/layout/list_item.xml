@@ -24,7 +24,7 @@
                     android:id="@+id/thumbnail_news"
                     style="@style/news_images"
                     android:contentDescription="@string/content_image_news"
-                    android:src="@drawable/librarian_book_01" />
+                    android:src="@drawable/news_image_2" />
 
                 <LinearLayout style="@style/layout_newsInfo">
 
