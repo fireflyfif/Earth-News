@@ -22,26 +22,17 @@
 
                 <ImageView
                     android:id="@+id/thumbnail_news"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    style="@style/news_images"
+                    android:contentDescription="@string/content_image_news"
                     android:src="@drawable/librarian_book_01" />
 
-                <LinearLayout
-                    android:id="@+id/title_info_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/padding_6dp"
-                    android:paddingRight="@dimen/padding_6dp"
-                    android:paddingBottom="@dimen/padding_6dp">
+                <LinearLayout style="@style/layout_newsInfo">
 
                     <TextView
                         android:id="@+id/news_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="6dp"
-                        android:text="Title of the News. Could be up to 3 lines."
-                        android:textAllCaps="true" />
+                        style="@style/textTitle"
+                        android:paddingBottom="@dimen/padding_6dp"
+                        android:text="@string/title_dummy_text" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -50,22 +41,13 @@
 
                         <TextView
                             android:id="@+id/section_name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="left"
-                            android:text="Environment"
-                            android:textSize="12sp" />
+                            style="@style/textTitle.section"
+                            android:text="@string/section_name" />
 
                         <TextView
                             android:id="@+id/news_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:text="Jun 10, 2017"
-                            android:textSize="12sp" />
+                            style="@style/textTitle.section.time_date"
+                            android:text="@string/news_date" />
 
                     </LinearLayout>
 
@@ -76,22 +58,14 @@
 
                         <TextView
                             android:id="@+id/author_name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Author Name Here"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            style="@style/textTitle.section.author"
+                            android:text="@string/author_name" />
 
                         <TextView
                             android:id="@+id/news_time"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:text="07:20"
-                            android:textSize="12sp" />
+                            style="@style/textTitle.section.time_date"
+                            android:text="@string/news_time"
+                            android:textStyle="normal" />
 
                     </LinearLayout>
 
@@ -99,18 +73,12 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"
-                android:layout_marginTop="@dimen/margin_6dp"/>
+            <View style="@style/divider" />
 
             <TextView
                 android:id="@+id/trail_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_6dp"
-                android:text="Short summary of the news. It could be up to 4 lines. I will try to make expandable list views." />
+                style="@style/textTitle.summary"
+                android:text="@string/news_summary" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

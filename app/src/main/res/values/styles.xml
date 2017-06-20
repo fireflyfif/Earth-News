@@ -8,10 +8,80 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Card View -->
     <style name="cardView" parent="AppTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/margin_6dp</item>
+    </style>
+
+    <!-- LinearLayout News Info -->
+    <style name="layout_newsInfo" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingRight">@dimen/padding_6dp</item>
+        <item name="android:paddingLeft">@dimen/padding_6dp</item>
+        <item name="android:paddingBottom">@dimen/padding_6dp</item>
+    </style>
+
+    <!-- Image News-->
+    <style name="news_images" parent="AppTheme">
+        <item name="android:layout_width">@dimen/image_height_width</item>
+        <item name="android:layout_height">@dimen/image_height_width</item>
+    </style>
+
+    <!-- Text News Title-->
+    <style name="textTitle" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/color_blueGray_darker</item>
+    </style>
+
+    <!-- Text News Section Name-->
+    <style name="textTitle.section">
+        <item name="android:layout_width">@dimen/width_0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:gravity">start</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/text_subtitle</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Text News Date -->
+    <style name="textTitle.section.time_date">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/color_blueGray_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Text News Author -->
+    <style name="textTitle.section.author">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/color_blueGray_darker</item>
+    </style>
+
+    <!-- Text News Summary -->
+    <style name="textTitle.summary">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/color_blueGray_dark</item>
+        <item name="android:padding">@dimen/padding_6dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Divider -->
+    <style name="divider" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:layout_marginTop">@dimen/margin_6dp</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>

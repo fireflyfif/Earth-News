@@ -5,6 +5,15 @@
 
     <string name="no_news_found">No News Found</string>
 
+    <string name="title_dummy_text">Title of the News</string>
+    <string name="section_name">Environment</string>
+    <string name="author_name">Author Name Here</string>
+    <string name="news_date">2017&#8211;06&#8211;19</string>
+    <string name="news_time">10:03:22</string>
+    <string name="news_summary">Short summary of the news. I will parse this information from the
+        fields: trialText from the JSON response of the query.</string>
+    <string name="content_image_news">Image of the news that is parsed through the JSON response.</string>
+
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
