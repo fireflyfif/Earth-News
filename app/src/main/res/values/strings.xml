@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Earth-News</string>
+    <string name="app_name">Earth News</string>
 
     <string name="no_internet">No Internet Connection</string>
 
@@ -9,6 +9,23 @@
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
     <string name="settings_title">News Settings</string>
+
+    <!-- Strings For Order-By Preference -->
+    <string name="settings_showNews_label">Show News</string>
+    <string name="settings_showNews_key" translatable="false">order-by</string>
+    <string name="settings_showNews_default">@string/settings_showNews_newest_value</string>
+
+    <!-- Labels for order-by recent news -->
+    <string name="settings_showNews_newest_label">Newest</string>
+    <string name="settings_showNews_newest_value" translatable="false">newest</string>
+
+    <!-- Labels for order-by oldest news -->
+    <string name="settings_showNews_oldest_label">Oldest</string>
+    <string name="settings_showNews_oldest_value" translatable="false">oldest</string>
+
+    <!-- Labels for order-by relevance news -->
+    <string name="settings_showNews_relevance_label">Relevance</string>
+    <string name="settings_showNews_relevance_value" translatable="false">relevance</string>
 
     <string name="no_date">No date</string>
     <string name="no_time">No time</string>

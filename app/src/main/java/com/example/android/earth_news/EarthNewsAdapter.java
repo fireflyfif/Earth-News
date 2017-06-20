@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,7 +90,9 @@ public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.View
         holder.date.setText(webDate);
         holder.time.setText(webTime);
         holder.author.setText(news.getAuthor());
-        holder.summary.setText(news.getSummary());
+        // Get trialText text and set it into summary TextView
+        // Format the HTML text into XML String
+        holder.summary.setText(Html.fromHtml(news.getSummary()));
         holder.summary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

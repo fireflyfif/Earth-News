@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_6dp">6dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="cardCornerRadius">2dp</dimen>
+    <dimen name="cardElevation">3dp</dimen>
 </resources>

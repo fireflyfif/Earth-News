@@ -4,9 +4,12 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,12 +34,21 @@ public class EarthNewsActivity extends AppCompatActivity
      */
     private static final int NEWS_LOADER_ID = 1;
 
+    private static final String BASE_NEWS_URL = "http://content.guardianapis.com/search?q=";
+
+    private static final String URL_SUBJECT = "environment";
+
+    private static final String GUARDIAN_TEST_KEY = "test";
+
+    /**
+     * The Guardian URL with a query word "environment", show-tags "contributor" for author's name
+     * page-size of 15 articles to display on the app.
+     */
     private static final String EARTH_NEWS_URL =
             "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-fields=all&page-size=15&q=environment&api-key=test";
 
     private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
-    private List<EarthNews> newsList;
     private RecyclerView recyclerView;
     private EarthNewsAdapter mAdapter;
 
@@ -63,7 +75,7 @@ public class EarthNewsActivity extends AppCompatActivity
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        newsList = new ArrayList<>();
+        List<EarthNews> newsList = new ArrayList<>();
         mAdapter = new EarthNewsAdapter(this, newsList);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -96,16 +108,33 @@ public class EarthNewsActivity extends AppCompatActivity
             // Otherwise, display error
             // First, hide loading indicator so error will be visible
             progressBar.setVisibility(View.GONE);
-            emptyView.setVisibility(View.GONE);
             emptyView.setText(R.string.no_internet);
+            emptyView.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public Loader<List<EarthNews>> onCreateLoader(int id, Bundle args) {
-        Log.e(LOG_TAG, "What is the URL " + EARTH_NEWS_URL);
 
-        return new NewsLoader(this, EARTH_NEWS_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String showNews = sharedPrefs.getString(
+                getString(R.string.settings_showNews_key),
+                getString(R.string.settings_showNews_default)
+        );
+
+        String query = BASE_NEWS_URL + URL_SUBJECT;
+        Uri baseUri = Uri.parse(query);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("show-fields", "all");
+        uriBuilder.appendQueryParameter("page-size", "15");
+        uriBuilder.appendQueryParameter("order-by", showNews);
+        uriBuilder.appendQueryParameter("api-key", GUARDIAN_TEST_KEY);
+        Log.e(LOG_TAG, "What is the current URL " + uriBuilder);
+
+        // Create a new loader for the given URL
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
