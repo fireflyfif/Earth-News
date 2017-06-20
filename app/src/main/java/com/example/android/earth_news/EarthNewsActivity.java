@@ -34,19 +34,24 @@ public class EarthNewsActivity extends AppCompatActivity
      */
     private static final int NEWS_LOADER_ID = 1;
 
+    /**
+     * The Guardian Base URL
+     */
     private static final String BASE_NEWS_URL = "http://content.guardianapis.com/search?q=";
 
+    /**
+     * The key word for the query
+     */
     private static final String URL_SUBJECT = "environment";
 
+    /**
+     * The Api Key test need for the query
+     */
     private static final String GUARDIAN_TEST_KEY = "test";
 
     /**
-     * The Guardian URL with a query word "environment", show-tags "contributor" for author's name
-     * page-size of 15 articles to display on the app.
+     * Tag for the log messages
      */
-    private static final String EARTH_NEWS_URL =
-            "http://content.guardianapis.com/search?order-by=newest&show-tags=contributor&show-fields=all&page-size=15&q=environment&api-key=test";
-
     private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
     private RecyclerView recyclerView;

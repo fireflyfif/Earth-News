@@ -22,18 +22,21 @@ import java.util.List;
 
 public class EarthNewsAdapter extends RecyclerView.Adapter<EarthNewsAdapter.ViewHolder> {
 
+    /**
+     * Tag for the log messages
+     */
     private static final String LOG_TAG = EarthNewsActivity.class.getName();
 
     /**
      * The part of the webPublicationDate string from the Guardian API where
-     * the date and the time are separated with the "T" and
+     * the date and the time are separated with the letter "T" and
      * are present like that ("2017-06-19T10:03:22Z").
      */
     private static final String DATE_SEPARATOR = "T";
 
     /**
      * The part of the webPublicationDate string from the Guardian API where
-     * on the end of the time there is a letter "Z" and
+     * at the end of the time there is a letter "Z" and
      * is present like that ("2017-06-19T10:03:22Z").
      */
     private static final String TIME_SEPARATOR = "Z";

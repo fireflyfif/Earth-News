@@ -70,7 +70,6 @@ public class QueryUtils {
                 String summary = newsFields.getString("trailText");
 
                 // Extract the thumbnail from the key called "thumbnail"
-//                String thumbnail = currentNews.getString("thumbnail");
                 String thumbnail;
                 if (newsFields.has("thumbnail")) {
                     thumbnail = newsFields.getString("thumbnail");
@@ -94,30 +93,6 @@ public class QueryUtils {
                 } else {
                     contributors = "unknown author";
                 }
-
-                // Extract the value for authors
-//                JSONArray authorsArray;
-//                String authors = "";
-//                String firstName, lastName;
-//                if (currentNews.has("tags")) {
-//                    authorsArray = currentNews.getJSONArray("tags");
-//                    if (authorsArray.length() != 0) {
-//                        for (int n = 0; n < authorsArray.length(); n++) {
-//                            JSONObject authorObject = authorsArray.getJSONObject(n);
-//                            if (authorObject.has("firstName")) {
-//                                firstName = authorObject.getString("firstName");
-//                            } else
-//                                firstName = "";
-//                            if (authorObject.has("lastName"))
-//                                lastName = authorObject.getString("lastName");
-//                            else
-//                                lastName = "";
-//                            authors = firstName + " " + lastName;
-//                        }
-//                    } else
-//                        authors = "Unknown Author";
-//                } else
-//                    authors = "Unknown Author";
 
                 // Create a new {@link EarthNews} object with the webTitle, sectionName,
                 // webDate, summary and authors from the JSON response.
